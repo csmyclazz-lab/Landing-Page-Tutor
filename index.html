@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jadilah Tutor Matematika — MyClazz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#182339;
+    --ink-soft:#3d4a63;
+    --paper:#F7F5EF;
+    --panel:#FFFFFF;
+    --rule:#DAD6C9;
+    --gold:#C98A25;
+    --gold-soft:#F1E0BE;
+    --teal:#2B5F52;
+    --teal-soft:#DCE9E3;
+    --clay:#A83F27;
+    --clay-soft:#F3DDD3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    color:var(--ink);
+    margin:0;
+  }
+  p{margin:0 0 16px;color:var(--ink-soft);font-size:16.5px;}
+  .rule{border:none;border-top:1px solid var(--rule);margin:0;}
+
+  /* HERO */
+  .hero{padding:74px 0 54px;}
+  .hero .tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--clay);
+    border:1px solid var(--clay-soft);
+    background:var(--clay-soft);
+    padding:5px 12px;
+    border-radius:3px;
+    margin-bottom:22px;
+  }
+  .hero h1{font-size:40px;line-height:1.22;letter-spacing:-.01em;}
+  .hero .lede{font-size:19px;color:var(--ink-soft);margin-top:20px;max-width:560px;}
+
+  section{padding:52px 0;}
+  section + section{border-top:1px solid var(--rule);}
+
+  .lead-line{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:var(--ink);margin-bottom:18px;line-height:1.45;}
+
+  /* REPORT CARD / STATS PANEL */
+  .rapor{
+    margin-top:34px;
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .rapor-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:18px 24px;
+    background:var(--ink);
+    color:#F2F0E8;
+  }
+  .rapor-head .title{
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    font-weight:500;
+  }
+  .rapor-head .stamp{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    border:1px solid #6b7488;
+    color:#c9cedb;
+    padding:4px 9px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  .rapor-body{padding:26px 24px 8px;}
+  .headline-stat{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    flex-wrap:wrap;
+    padding-bottom:22px;
+    margin-bottom:22px;
+    border-bottom:1px dashed var(--rule);
+  }
+  .headline-stat .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:46px;
+    color:var(--clay);
+    line-height:1;
+  }
+  .headline-stat .desc{font-size:15px;color:var(--ink-soft);max-width:380px;}
+
+  .trend-row{display:flex;gap:0;margin-bottom:26px;}
+  .trend-cell{flex:1;text-align:center;padding:0 6px;position:relative;}
+  .trend-cell:not(:first-child){border-left:1px solid var(--rule);}
+  .trend-cell .yr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.06em;}
+  .trend-cell .val{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--teal);margin:6px 0 8px;}
+  .bar-track{height:6px;background:var(--teal-soft);border-radius:3px;margin:0 10px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--teal);border-radius:3px;}
+
+  table.jenjang{width:100%;border-collapse:collapse;margin-bottom:6px;font-size:14px;}
+  table.jenjang th{
+    text-align:left;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-weight:600;
+    padding:8px 6px;
+    border-bottom:1px solid var(--rule);
+  }
+  table.jenjang td{padding:9px 6px;border-bottom:1px solid var(--rule);color:var(--ink);}
+  table.jenjang td.pct{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;color:var(--teal);}
+
+  .foot-source{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    padding:16px 24px 20px;
+    background:var(--paper);
+    border-top:1px solid var(--rule);
+  }
+  .foot-source strong{color:var(--ink);}
+
+  .pisa-note{
+    margin-top:20px;
+    padding:18px 22px;
+    background:var(--gold-soft);
+    border-radius:6px;
+    font-size:14.5px;
+    color:#4a3410;
+  }
+  .pisa-note strong{color:var(--ink);}
+
+  /* LISTS */
+  ul.plain{list-style:none;padding:0;margin:0 0 14px;}
+  ul.plain li{
+    position:relative;
+    padding-left:22px;
+    margin-bottom:12px;
+    color:var(--ink-soft);
+    font-size:16.5px;
+  }
+  ul.plain li::before{
+    content:"";
+    position:absolute;
+    left:0;top:9px;
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--teal);
+  }
+  ul.dash{list-style:none;padding:0;margin:0;}
+  ul.dash li{
+    padding:14px 0;
+    border-bottom:1px solid var(--rule);
+    color:var(--ink-soft);
+    font-size:16.5px;
+  }
+  ul.dash li:last-child{border-bottom:none;}
+  ul.dash li strong{color:var(--ink);font-weight:600;}
+
+  blockquote{
+    margin:24px 0 0;
+    padding:22px 26px;
+    border-left:3px solid var(--gold);
+    background:var(--panel);
+    border-radius:0 6px 6px 0;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--ink);
+  }
+  blockquote cite{
+    display:block;
+    margin-top:12px;
+    font-family:'Inter',sans-serif;
+    font-style:normal;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  /* CTA */
+  .cta{
+    background:var(--ink);
+    color:#F2F0E8;
+    border-radius:8px;
+    padding:38px 32px;
+    text-align:center;
+    margin-top:8px;
+  }
+  .cta h2{color:#F2F0E8;font-size:25px;margin-bottom:12px;}
+  .cta p{color:#c9cedb;max-width:480px;margin:0 auto 22px;}
+  .cta .btn{
+    display:inline-block;
+    background:var(--gold);
+    color:#2b1c05;
+    font-weight:600;
+    font-size:15.5px;
+    text-decoration:none;
+    padding:14px 30px;
+    border-radius:5px;
+  }
+  .cta .subject{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:#9aa2b3;
+    margin-top:18px;
+  }
+  .cta .subject b{color:#e4c98a;}
+
+  footer{padding:30px 0 50px;text-align:center;font-size:12.5px;color:var(--ink-soft);}
+
+  @media(max-width:600px){
+    .hero{padding:52px 0 40px;}
+    .hero h1{font-size:31px;}
+    .hero .lede{font-size:17px;}
+    section{padding:40px 0;}
+    .headline-stat .num{font-size:38px;}
+    .trend-row{flex-wrap:wrap;}
+    .trend-cell{flex:1 1 33%;margin-bottom:14px;}
+    table.jenjang{font-size:12.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="tag">Rekrutmen Tutor Matematika — MyClazz</span>
+    <h1>Jadilah tutor yang membantu anak Indonesia lebih percaya diri belajar Matematika.</h1>
+    <p class="lede">Setiap anak berhak merasakan bahwa belajar Matematika itu menyenangkan — dan Anda bisa menjadi orang yang mewujudkannya.</p>
+  </section>
+
+  <section id="mengajar">
+    <p class="eyebrow">Mengajar bukan sekadar pekerjaan</p>
+    <p class="lead-line">Masih banyak siswa Sekolah Dasar yang menganggap Matematika sebagai pelajaran yang menakutkan.</p>
+    <p>Mereka kehilangan rasa percaya diri, kesulitan mengikuti pelajaran di kelas, dan akhirnya merasa bahwa mereka "tidak pintar Matematika." Padahal, sering kali mereka hanya membutuhkan seseorang yang sabar mendampingi dan menjelaskan dengan cara yang lebih mudah dipahami.</p>
+    <p>Orang itu bisa jadi adalah <strong>Anda</strong>.</p>
+  </section>
+
+  <section id="data">
+    <p class="eyebrow">Mengapa ini penting</p>
+    <p class="lead-line">Kemampuan numerasi merupakan salah satu fondasi utama bagi keberhasilan belajar anak — dan datanya menunjukkan masih banyak pekerjaan rumah yang harus diselesaikan bersama.</p>
+    <p>Berbagai hasil evaluasi pendidikan resmi dalam beberapa tahun terakhir menunjukkan bahwa kemampuan numerasi peserta didik Indonesia masih menjadi tantangan besar. Berikut potretnya, berdasarkan data resmi pemerintah dan lembaga evaluasi internasional.</p>
+
+    <div class="rapor">
+      <div class="rapor-head">
+        <span class="title">Rapor Numerasi Anak Indonesia</span>
+        <span class="stamp">Data resmi</span>
+      </div>
+      <div class="rapor-body">
+
+        <div class="headline-stat">
+          <span class="num">~32%</span>
+          <span class="desc">anak Indonesia jenjang dasar dan menengah <strong style="color:var(--ink)">belum mencapai kompetensi minimum numerasi</strong> pada tahun 2024 — artinya sekitar 1 dari 3 anak masih kesulitan menyelesaikan soal berhitung dasar sesuai standar.</span>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:10px;">Tren capaian numerasi nasional</p>
+        <div class="trend-row">
+          <div class="trend-cell">
+            <div class="yr">2022</div>
+            <div class="val">45,2%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:45%;"></div></div>
+          </div>
+          <div class="trend-cell">
+            <div class="yr">2023</div>
+            <div class="val">62,5%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:62%;"></div></div>
+          </div>
+          <div class="trend-cell">
+            <div class="yr">2024</div>
+            <div class="val">67,9%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:68%;"></div></div>
+          </div>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:6px;">Capaian kompetensi minimum numerasi per jenjang (2024)</p>
+        <table class="jenjang">
+          <tr><th>Jenjang</th><th style="text-align:right;">Capaian</th></tr>
+          <tr><td>SD / MI sederajat</td><td class="pct">69,51%</td></tr>
+          <tr><td>SMP / MTs sederajat</td><td class="pct">68,10%</td></tr>
+          <tr><td>SMA / MA sederajat</td><td class="pct">63,71%</td></tr>
+          <tr><td>SMK / MAK</td><td class="pct">64,02%</td></tr>
+        </table>
+
+      </div>
+      <div class="foot-source"><strong>Sumber:</strong> Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen) — Rapor Pendidikan &amp; Asesmen Nasional (AN) 2022–2024.</div>
+    </div>
+
+    <div class="pisa-note">
+      <strong>Di panggung dunia, tantangannya lebih terasa.</strong> Hasil PISA 2022 (OECD) mencatat skor matematika siswa Indonesia usia 15 tahun berada di angka 366 — jauh di bawah rata-rata negara OECD sebesar 472, dan menempatkan Indonesia di kelompok 12 negara terbawah dari 81 negara peserta.
+    </div>
+
+    <p style="margin-top:20px;">Di sejumlah wilayah, terutama di kawasan Indonesia timur, kesenjangannya lebih dalam lagi: lebih dari 60% anak — atau sekitar 3 dari 5 anak — belum mencapai kompetensi minimum literasi dan numerasi.</p>
+    <p>Di balik setiap angka tersebut, ada anak-anak yang sebenarnya ingin bisa, tetapi belum mendapatkan pendampingan yang tepat. Karena itu, setiap sesi belajar yang Anda berikan dapat menjadi langkah kecil yang membawa perubahan besar.</p>
+  </section>
+
+  <section id="solusi">
+    <p class="eyebrow">Menjadi tutor berarti menjadi bagian dari solusi</p>
+    <p class="lead-line">Saat Anda mengajar satu anak, Anda bukan hanya membantu menyelesaikan soal.</p>
+    <p>Anda membantu seorang anak:</p>
+    <ul class="plain">
+      <li>lebih percaya diri ketika masuk kelas,</li>
+      <li>berani mencoba menjawab pertanyaan,</li>
+      <li>memahami konsep yang sebelumnya terasa sulit,</li>
+      <li>percaya bahwa dirinya mampu belajar.</li>
+    </ul>
+    <p>Dampaknya bisa bertahan jauh lebih lama daripada satu nilai ujian.</p>
+  </section>
+
+  <section id="myclazz">
+    <p class="eyebrow">Mengapa bergabung bersama MyClazz?</p>
+    <p class="lead-line">Kami percaya bahwa tutor bukan sekadar pengajar. Tutor adalah mentor, penyemangat, dan teman belajar bagi setiap siswa.</p>
+    <p>Di MyClazz, Anda akan memperoleh:</p>
+    <ul class="dash">
+      <li><strong>Jadwal fleksibel</strong> — tetap dapat fokus pada kuliah atau aktivitas lainnya.</li>
+      <li><strong>Honor yang kompetitif.</strong></li>
+      <li><strong>Pengalaman mengajar secara langsung.</strong></li>
+      <li><strong>Pengembangan diri</strong> — komunikasi, kepemimpinan, dan problem solving.</li>
+      <li><strong>Nilai tambah untuk CV</strong> dan pengembangan karier.</li>
+    </ul>
+  </section>
+
+  <section id="kriteria">
+    <p class="eyebrow">Siapa yang kami cari?</p>
+    <p>Kami membuka kesempatan bagi Anda yang:</p>
+    <ul class="plain">
+      <li>Mahasiswa aktif atau alumni dari berbagai jurusan,</li>
+      <li>Memiliki pemahaman Matematika tingkat Sekolah Dasar,</li>
+      <li>Menyukai dunia pendidikan,</li>
+      <li>Sabar, komunikatif, dan bertanggung jawab,</li>
+      <li>Bersedia mengajar secara tatap muka.</li>
+    </ul>
+    <p style="margin-top:22px;">Yang paling kami cari bukanlah orang yang sempurna. Kami mencari orang yang peduli terhadap proses belajar anak.</p>
+  </section>
+
+  <section id="bayangkan">
+    <p class="eyebrow">Bayangkan jika...</p>
+    <p>Setelah beberapa bulan belajar bersama Anda, seorang siswa yang awalnya selalu mendapat nilai di bawah rata-rata mulai berani mengangkat tangan di kelas.</p>
+    <blockquote>
+      "Sekarang Matematika ternyata tidak sesulit yang saya kira."
+      <cite>Kalimat sederhana ini mungkin terdengar biasa. Namun bagi seorang tutor, itulah salah satu pencapaian terbesar.</cite>
+    </blockquote>
+  </section>
+
+  <section id="daftar">
+    <p class="eyebrow">Siap menjadi bagian dari perubahan?</p>
+    <p class="lead-line">Tidak semua orang memiliki kesempatan untuk mengubah masa depan seseorang. Sebagai tutor, Anda bisa melakukannya setiap minggu.</p>
+    <p>Mari bergabung bersama MyClazz dan bantu lebih banyak anak Indonesia menemukan kembali rasa percaya diri mereka dalam belajar Matematika.</p>
+
+    <div class="cta">
+      <h2>Daftar sekarang</h2>
+      <p>Kirimkan email lamaran Anda dan jadi bagian dari perubahan yang nyata bagi pendidikan anak Indonesia.</p>
+      <a class="btn" href="mailto:cs.myclazz@gmail.com?subject=Nama%20Lengkap%20-%20Nomor%20WhatsApp">Kirim email ke cs.myclazz@gmail.com</a>
+      <div class="subject">Subject email: <b>Nama Lengkap – Nomor WhatsApp</b></div>
+    </div>
+    <p style="margin-top:20px;font-size:14px;">Kami akan menghubungi kandidat yang sesuai dengan kebutuhan kami.</p>
+  </section>
+
+  <footer>MyClazz &middot; Data numerasi bersumber dari Kemendikdasmen (Rapor Pendidikan &amp; Asesmen Nasional 2022–2024) dan OECD PISA 2022.</footer>
+
+</div>
+</body>
+</html>
